@@ -11,8 +11,11 @@ A small archiving tool that helps speed up the process of archiving multiple rep
 ## Personal Access Token 
 
 The GitHub API requires a PAT(Personal Access Token) to allow you to interact with it, as well as to ensure security. 
-You must edit the `.env` file with you own GitHub PAT(Personal Access Token). You can do this by adding `pat=` 
+You must edit the `.env` file with you own GitHub PAT(Personal Access Token). 
+
+You can do this by adding `pat=` 
 followed by your PAT.
+
 It should look similar to this: -
 `pat=7g9h9uhui9dh1d8hd012h01` (this is random alphanumeric, not a real PAT!)
 
