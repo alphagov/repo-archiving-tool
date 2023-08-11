@@ -16,7 +16,7 @@ for (let i = 0; i < reposToBeArchived.length; i++) {
         const response = await octokit.request('PATCH /repos/{owner}/{repo}', {
             owner: 'alphagov',
             repo: reposToBeArchived[i],
-            archived: 'false',
+            archived: 'true',
             headers: {
                 'X-GitHub-Api-Version': '2022-11-28'
             }
