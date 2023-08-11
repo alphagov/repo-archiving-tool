@@ -2,15 +2,16 @@
 // https://github.com/octokit/core.js#readme
 import {Octokit} from "octokit";
 import 'dotenv/config.js';
-import {reposToBeArchived} from "./listOfReposToBeArchived.js";
+//import {reposToBeArchived} from "./listOfReposToBeArchived.js";
 
 let errorCount = 0;
 let successCount = 0;
-let pat = process.env.pat;
+const reposToBeArchived = JSON.parse(process.env.reposToBeArchived)
+const pat = process.env.pat;
 const octokit = new Octokit({
     auth: `${pat}`
 })
-
+console.log(reposToBeArchived);
 console.log("=== Archiving the list of repo's...");
 
 for (let i = 0; i < reposToBeArchived.length; i++) {
