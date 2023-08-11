@@ -4,8 +4,12 @@ A small archiving tool that helps speed up the process of archiving multiple rep
 
 ## Installation
 
-1. Clone this repo to your local computer
-2. Run `npm install` from your terminal.
+All from within your terminal --->
+
+1. Clone this repo to your local computer 
+2. Type `cd repo-archiving-tool` and press enter to go into the new folder
+3. Type `npm install` and hit enter.
+4. Type `touch .env` and press enter to create a `.env` file. 
 
 
 ## Personal Access Token 
