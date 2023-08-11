@@ -42,3 +42,9 @@ Once you have prepared the repos--->
 3. Any errors that occur will be flagged by the program, with a message to help you resolve the issue.
 4. Check the repos to ensure the job it completed.
 
+## Possibilities
+
+Further to being able to batch archive, there is a wealth of other elements of a repo that you can adjust using the 
+API via a request call. There is an exhaustive list of possible functionality here ---> 
+
+[List of Repository update parameters](https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#update-a-repository)
