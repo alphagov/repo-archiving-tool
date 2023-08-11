@@ -17,7 +17,7 @@ console.log("=== Archiving the list of repo's...");
 for (let i = 0; i < reposToBeArchived.length; i++) {
     try {
         const response = await octokit.request('PATCH /repos/{owner}/{repo}', {
-            owner: 'EduardoAquinta',
+            owner: 'alphagov',
             repo: reposToBeArchived[i],
             archived: 'false',
             headers: {
