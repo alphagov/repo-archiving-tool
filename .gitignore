@@ -1,3 +1,4 @@
 .env
-listOfReposToBeArchived.js
-package-lock.json
+/listOfReposToBeArchived.js
+/package-lock.json
+/node_modules
