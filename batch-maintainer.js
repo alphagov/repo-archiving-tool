@@ -3,7 +3,7 @@ import 'dotenv/config.js';
 
 let errorCount = 0;
 let successCount = 0;
-const reposToBeArchived = JSON.parse(process.env.reposToBeArchived)
+const reposList = JSON.parse(process.env.reposList)
 const pat = process.env.pat;
 const verbose = process.env.verbose || "undefined";
 const userToEscalate = process.env.userToEscalate;
@@ -13,13 +13,13 @@ const octokit = new Octokit({
     auth: `${pat}`
 })
 
-console.log(`=== Escalating ${userToEscalate} in a list of ${reposToBeArchived.length} repos with PAT ending ${pat.slice(-4)}...`);
+console.log(`=== Escalating ${userToEscalate} in a list of ${reposList.length} repos with PAT ending ${pat.slice(-4)}...`);
 
-for (let i = 0; i < reposToBeArchived.length; i++) {
+for (let i = 0; i < reposList.length; i++) {
     try {
         const response = await octokit.request('PUT /repos/{owner}/{repo}/collaborators/{username}', {
             owner: repoOwner,
-            repo: reposToBeArchived[i],
+            repo: reposList[i],
             username: userToEscalate,
             permission: escalationPrivilege,
             headers: {
@@ -27,16 +27,16 @@ for (let i = 0; i < reposToBeArchived.length; i++) {
             }
         })
         if(response.status === 204){
-            console.log(` ✅ ${userToEscalate} has been made a maintainer of \x1b[33m${repoOwner}/${reposToBeArchived[i]}\x1b[0m`)
+            console.log(` ✅ ${userToEscalate} has been made a maintainer of \x1b[33m${repoOwner}/${reposList[i]}\x1b[0m`)
             successCount++
         }else if (response.status === 201)
         {
-            console.log(` ✅ ${userToEscalate} has been invited as a maintainer of \x1b[33m${repoOwner}/${reposToBeArchived[i]}\x1b[0m`)
+            console.log(` ✅ ${userToEscalate} has been invited as a maintainer of \x1b[33m${repoOwner}/${reposList[i]}\x1b[0m`)
             successCount++
         }
     } catch (error) {
         if (error.response) {
-            console.error(` ❌ \x1b[31mError with escalating ${userToEscalate} for \x1b[1;4m${repoOwner}/${reposToBeArchived[i]}\x1b[0;31m!\x1b[0m Status: ${error.response.status}. Message: “${error.response.data.message}”`)
+            console.error(` ❌ \x1b[31mError with escalating ${userToEscalate} for \x1b[1;4m${repoOwner}/${reposList[i]}\x1b[0;31m!\x1b[0m Status: ${error.response.status}. Message: “${error.response.data.message}”`)
             errorCount++;
         }
     }
