@@ -8,16 +8,16 @@ const pat = process.env.pat;
 const verbose = process.env.verbose || "undefined";
 const userToEscalate = process.env.userToEscalate;
 const repoOwner = 'alphagov';
-const escalationPrivilege = 'maintainer';
+const escalationPrivilege = 'maintain';
 const octokit = new Octokit({
     auth: `${pat}`
 })
 
-console.log(`=== Escalating ${userToEscalate} in a list of ${reposToBeArchived.length} repos...`);
+console.log(`=== Escalating ${userToEscalate} in a list of ${reposToBeArchived.length} repos with PAT ending ${pat.slice(-4)}...`);
 
 for (let i = 0; i < reposToBeArchived.length; i++) {
     try {
-        const response = await octokit.request('PATCH /repos/{owner}/{repo}/collaborators/{username}', {
+        const response = await octokit.request('PUT /repos/{owner}/{repo}/collaborators/{username}', {
             owner: repoOwner,
             repo: reposToBeArchived[i],
             username: userToEscalate,
@@ -26,8 +26,12 @@ for (let i = 0; i < reposToBeArchived.length; i++) {
                 'X-GitHub-Api-Version': '2022-11-28'
             }
         })
-        if(response.status === 200){
+        if(response.status === 204){
             console.log(` ✅ ${userToEscalate} has been made a maintainer of \x1b[33m${repoOwner}/${reposToBeArchived[i]}\x1b[0m`)
+            successCount++
+        }else if (response.status === 201)
+        {
+            console.log(` ✅ ${userToEscalate} has been invited as a maintainer of \x1b[33m${repoOwner}/${reposToBeArchived[i]}\x1b[0m`)
             successCount++
         }
     } catch (error) {
